@@ -1,5 +1,18 @@
 #!/bin/bash
-sudo apt-get update
+sudo apt update
+sudo apt upgrade
+
+
+#Repositories
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" #Vagrant
+sudo apt-add-repository ppa:remmina-ppa-team/remmina-next #Remmina
+sudo add-apt-repository ppa:peek-developers/stable # Peek
+sudo add-apt-repository ppa:obsproject/obs-studio # OBS
+sudo add-apt-repository "deb https://apt.octopus.com/ stretch main" #Octopus Deploy
+
+
+sudo apt update
+sudo apt upgrade
 
 #VS Code Stuff
 sudo apt-get install software-properties-common apt-transport-https
@@ -10,7 +23,6 @@ sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.micr
 #SOLAAR (For Logitech Mice)
 #Dependencies
 sudo apt install python3-pip
-
 git clone https://github.com/pwr-Solaar/Solaar.git
 pip install --user ./Solaar
 sudo chmod +x setup.cfg
@@ -20,17 +32,14 @@ sudo mv ./Solaar/rules.d/42-logitech-unify-permissions.rules /etc/udev/rules.d
 sudo udevadm control --reload-rules
 
 #Remmina Stuff
-sudo apt-add-repository ppa:remmina-ppa-team/remmina-next
-sudo apt-get update
 sudo apt-get install remmina remmina-plugin-rdp remmina-plugin-secret
-
 sudo killall remmina
 
 #FlameShot (Screenshot Recorder)
 sudo apt-get install flameshot
 
 #Peek (Gif Recorder)
-sudo add-apt-repository ppa:peek-developers/stable
+
 sudo apt update
 sudo apt install peek
 
@@ -40,7 +49,6 @@ wget https://gitlab.com/lundal/tactile/-/archive/master/tactile-master.tar.gz
 #Brave
 Sudo apt install apt-transport-https curl gnupg
 curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
-
 echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 
 sudo apt-get update
@@ -48,7 +56,6 @@ sudo apt install brave-browser
 
 
 #OBS Studio
-sudo add-apt-repository ppa:obsproject/obs-studio
 sudo apt-get update
 sudo apt-get install obs-studio
 
@@ -89,15 +96,15 @@ sudo chmod +x /opt/microsoft/powershell/7/pwsh
 # Create the symbolic link that points to pwsh
 sudo ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh
 
-#Open in Code Context Menu
+#Add "Open in Code" Context Menu
 bash -c "$(wget -qO- https://raw.githubusercontent.com/harry-cpp/code-nautilus/master/install.sh)"
 
 # Octopus Tentacle
 sudo apt-key adv --fetch-keys https://apt.octopus.com/public.key
 
-sudo add-apt-repository "deb https://apt.octopus.com/ stretch main"
-# for Raspbian use 
-# sh -c "echo 'deb https://apt.octopus.com/ buster main' >> /etc/apt/sources.list"
+#VAGRANT
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-get update && sudo apt-get install vagrant
 
 sudo apt-get update
 sudo apt-get install tentacle -f
